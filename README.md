@@ -19,7 +19,7 @@ Loads a saved baseline from "baseline.txt" into memory.
 Continuously monitors files in the "Files" directory for changes or additions.
 Notifies the user when a new file is created, a file is changed, or a baseline file is deleted.
 
-<h3>Overall Languages and Utilities Used</h3>
+<h2>Overall Languages and Utilities Used</h2>
 
 - <b>PowerShell</b> 
 - <b>Diskpart</b>
