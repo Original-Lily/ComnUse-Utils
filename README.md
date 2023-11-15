@@ -1,8 +1,3 @@
-<h3>Languages and Utilities Used</h3>
-
-- <b>PowerShell</b> 
-- <b>Diskpart</b>
-
 <h2>DiskSan - Disk Sanitization</h2>
 
 <h3>Description</h3>
@@ -23,3 +18,8 @@ Creates or overwrites a baseline file ("baseline.txt") with file paths and corre
 Loads a saved baseline from "baseline.txt" into memory.
 Continuously monitors files in the "Files" directory for changes or additions.
 Notifies the user when a new file is created, a file is changed, or a baseline file is deleted.
+
+<h3>Overall Languages and Utilities Used</h3>
+
+- <b>PowerShell</b> 
+- <b>Diskpart</b>
