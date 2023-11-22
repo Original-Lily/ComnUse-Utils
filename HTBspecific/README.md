@@ -1,3 +1,4 @@
 # HTB-CommonTools
 
-List of tools i commonly use when on HackTheBox, automated scripts for ease of use ^_^
+Repository for use automating common tasks (in my experience) on HackTheBox
+Expand where necessary, suggestions welcome!
