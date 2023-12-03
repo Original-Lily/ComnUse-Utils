@@ -24,7 +24,13 @@ Loads a saved baseline from "baseline.txt" into memory.
 Continuously monitors files in the "Files" directory for changes or additions.
 Notifies the user when a new file is created, a file is changed, or a baseline file is deleted.
 
+<h2>Sentinel Log exporter</h2>
+
+<h3>Description</h3>
+This PowerShell script is designed to run continuously, monitoring Windows Event Viewer logs for failed RDP (Remote Desktop Protocol) login attempts. Note: The script relies on an external IP geolocation API (https://ipgeolocation.io/) to fetch additional information about the source IP address. The API key needs to be obtained from that service and inserted into the script for it to work correctly. </br>
+
 <h2>Overall Languages and Utilities Used</h2>
 
 - <b>PowerShell</b> 
 - <b>Diskpart</b>
+- <b>Microsoft Azure</b>
