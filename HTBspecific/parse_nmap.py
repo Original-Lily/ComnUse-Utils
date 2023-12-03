@@ -1,17 +1,26 @@
-#!/usr/bin/env python
+#pip install python-nmap
+import nmap
 
-import re
+def perform_port_scan(target_ip, ports='1-1000'):
+    # Create Nmap scanner object
+    nm = nmap.PortScanner()
 
-def parse_nmap_output(output):
-    # Implement your parsing logic here
-    # Example: Extract open ports
-    open_ports = re.findall(r"\d+/tcp\s+open", output)
-    
-    return open_ports
+    # Perform a TCP SYN scan on the specified ports
+    nm.scan(target_ip, ports, arguments='-sS')
+
+    # Print scan results
+    for host in nm.all_hosts():
+        print(f"Results for {host}:")
+        for proto in nm[host].all_protocols():
+            print(f"Protocol: {proto}")
+            ports = nm[host][proto].keys()
+            for port in ports:
+                state = nm[host][proto][port]['state']
+                print(f"Port {port}: {state}")
 
 if __name__ == "__main__":
-    with open("scan_results.txt", "r") as file:
-        nmap_output = file.read()
-
-    open_ports = parse_nmap_output(nmap_output)
-    print("Open Ports:", open_ports)
+    # Replace 'your_target_ip' with the actual target IP address
+    target_ip = 'your_target_ip'
+    
+    # Perform a port scan on the target IP
+    perform_port_scan(target_ip)
