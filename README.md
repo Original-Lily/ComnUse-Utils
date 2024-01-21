@@ -29,8 +29,13 @@ Notifies the user when a new file is created, a file is changed, or a baseline f
 <h3>Description</h3>
 This PowerShell script is designed to run continuously, monitoring Windows Event Viewer logs for failed RDP (Remote Desktop Protocol) login attempts. Note: The script relies on an external IP geolocation API (https://ipgeolocation.io/) to fetch additional information about the source IP address. The API key needs to be obtained from that service and inserted into the script for it to work correctly. </br>
 
+<h2>GoScan: Web Technology Scanning Utility</h2>
+
+GoScan is a command-line tool developed in Go (Golang) that allows users to analyze  the web technologies used by websites. With GoScan, you can gain much quicker knowledge reguarding the technologies & frameworks behind websites.
+
 <h2>Overall Languages and Utilities Used</h2>
 
 - <b>PowerShell</b> 
 - <b>Diskpart</b>
 - <b>Microsoft Azure</b>
+- <b>Golang</b>
