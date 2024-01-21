@@ -15,13 +15,13 @@ To install GoScan, you need to have Go installed on your system. Follow these st
 1. Clone the repository:
 
    ```
-   git clone https://github.com/Original-Lily/GoScan.git
+   git clone https://github.com/Original-Lily/ComnUse-Utils.git
    ```
 
 2. Navigate to the project directory:
 
    ```
-   cd GoScan
+   cd ComnUse-Utils/GoScan
    ```
 
 3. Build the binary:
@@ -96,3 +96,5 @@ GoScan provides two output formats: plain text and JSON.
     }
   }
   ```
+
+**Note:** Json output currently a work in progress :)
