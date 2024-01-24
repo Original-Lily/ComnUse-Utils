@@ -35,7 +35,8 @@ GoScan is a command-line tool developed in Go (Golang) that allows users to anal
 
 <h2>Overall Languages and Utilities Used</h2>
 
-- <b>PowerShell</b> 
+- <b>PowerShell</b>
+- <b>Python</b>
 - <b>Diskpart</b>
 - <b>Microsoft Azure</b>
 - <b>Golang</b>
