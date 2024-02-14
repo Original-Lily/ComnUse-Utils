@@ -31,6 +31,7 @@ This PowerShell script is designed to run continuously, monitoring Windows Event
 
 <h2>GoScan: Web Technology Scanning Utility</h2>
 
+<h3>Description</h3>
 GoScan is a command-line tool developed in Go (Golang) that allows users to analyze  the web technologies used by websites. With GoScan, you can gain much quicker knowledge reguarding the technologies & frameworks behind websites.
 
 <h2>Overall Languages and Utilities Used</h2>
