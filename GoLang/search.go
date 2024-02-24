@@ -83,7 +83,7 @@ func scanDirectory(root string) (int, int) {
 }
 
 func main() {
-	directory := "C:/Users/buddi/OneDrive/Desktop/Computer Science Revision/Home"
+	directory := "Path/to/directory"
 	numVulnerableFiles, numFilesScanned := scanDirectory(directory)
 
 	vulnerabilityScore := VulnerabilityScore(numVulnerableFiles)
