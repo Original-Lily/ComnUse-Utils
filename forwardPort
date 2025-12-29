@@ -1,0 +1,110 @@
+#!/bin/bash
+## Description: Forwards all traffic to the port to the kali vm
+## Dependencies:	iptables
+## Usage:	forwardPort [options] <port>
+## Arguments: <port> - The port to forward
+## Flags: --remove - Remove the port forwarding
+## Author: Tom Steer
+
+kaliIP=192.168.122.41
+port=$1
+
+# Create as a function
+
+function usage() {
+		echo "Usage: $0 [options] <port>"
+		echo "Description: Forwards all traffic to the port to the kali vm"
+		echo "Dependencies: iptables"
+		echo "Arguments: <port> - The port to forward"
+		echo "Flags: --remove - Remove the port forwarding"
+		echo "Author: Tom Steer"
+}
+
+function checkDependencies() {
+	if ! command -v iptables &> /dev/null; then
+		echo "iptables could not be found. Please install it."
+		exit 1
+	fi
+}
+
+function checkForwardingEnabled() {
+	if [ "$(cat /proc/sys/net/ipv4/ip_forward)" -ne 1 ]; then
+		echo "IPv4 forwarding is not enabled. Enabling it..."
+		echo 1 > /proc/sys/net/ipv4/ip_forward
+		if [ $? -ne 0 ]; then
+			echo "Failed to enable IPv4 forwarding. Please run as root."
+			exit 1
+		fi
+		echo "IPv4 forwarding enabled."
+	fi
+}
+
+
+function forwardPort() {
+	if [ -z "$port" ]; then
+			echo "Usage: $0 <port>"
+			exit 1
+	fi
+
+	# Check if the port is a valid number between 1 and 65535
+	if ! [[ "$port" =~ ^[0-9]+$ ]] || [ "$port" -lt 1 ] || [ "$port" -gt 65535 ]; then
+			echo "Invalid port number. Please provide a number between 1 and 65535."
+			exit 1
+	fi
+
+	# Check if the port is already in use
+	if lsof -i :$port &> /dev/null; then
+			echo "Port $port is already in use. Please choose a different port."
+			exit 1
+	fi
+
+	# Check if the port is already forwarded from /tmp/port-forwards
+	if [ -f /tmp/port-forwards ] && grep -q "$port" /tmp/port-forwards; then
+			echo "Port $port is already forwarded. Please choose a different port."
+			exit 1
+	fi
+
+	# Forward the port
+	iptables -t nat -A PREROUTING -p tcp --dport $port -j DNAT --to-destination $kaliIP:$port
+	iptables -t nat -A POSTROUTING -p tcp --dport $port -j MASQUERADE
+	iptables -t nat -A OUTPUT -p tcp --dport $port -j DNAT --to-destination $kaliIP:$port
+	echo "$port" >> /tmp/port-forwards
+	echo "Port $port forwarded to $kaliIP:$port"
+}
+
+function removePortForward() {
+	# Check if the port is being forwarded
+	if ! grep -q "$port" /tmp/port-forwards; then
+			echo "Port $port is not being forwarded. Please choose a different port."
+			exit 1
+	fi
+	# Remove the port forwarding
+	iptables -t nat -D PREROUTING -p tcp --dport $port -j DNAT --to-destination $kaliIP:$port
+	iptables -t nat -D POSTROUTING -p tcp --dport $port -j MASQUERADE
+	iptables -t nat -D OUTPUT -p tcp --dport $port -j DNAT --to-destination $kaliIP:$port
+	# Mask the source
+	sed -i "/$port/d" /tmp/port-forwards
+	echo "Port $port removed from forwarding"
+}
+
+if [[ "$1" == "--help" ]]; then
+	usage
+	exit 0
+fi
+
+if [ "$EUID" -ne 0 ]; then
+	echo "Not running as root. Restarting with sudo..."
+	exec sudo "$0" "$@"
+fi
+
+checkDependencies
+checkForwardingEnabled
+
+if [[ "$1" == "--remove" ]]; then
+	shift
+	port=$1
+	removePortForward
+	exit 0
+fi
+
+forwardPort
